@@ -1,3 +1,4 @@
+import { FixedObject } from 'gatsby-image';
 import { Element } from 'hast';
 import { Categories } from './categories';
 import { Images } from './images';
@@ -7,6 +8,17 @@ interface RelatedRecipes {
   slug: string;
   title: string;
   publishDate: string;
+}
+
+interface WebStory {
+  coverPage: {
+    fixed: FixedObject;
+    title: string;
+  };
+  pages: {
+    fixed: FixedObject;
+    title: string;
+  }[];
 }
 
 export interface Post {
@@ -63,4 +75,5 @@ export interface Post {
   servings?: string;
   slug?: string;
   title: string;
+  webStory?: WebStory[];
 }

@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import GlobalStyle from '../atoms/GlobalStyle';
+import { H1, H2 } from '../atoms/Headings';
 import theme from '../theme';
 import SEO from '../molecules/SEO';
 import { generateFromAst } from '../utils/utils';
@@ -80,48 +81,32 @@ const PostPageAMP: FC<PostPageAMPProps> = ({ pageContext, location }) => {
           <amp-story-page id="cover">
             <amp-story-grid-layer template="fill">
               <amp-img
-                src={fixed?.src}
+                src={post.webStory?.[0].coverPage.fixed.src}
                 width="720"
                 height="1280"
                 layout="responsive"
               />
             </amp-story-grid-layer>
             <amp-story-grid-layer template="vertical">
-              <h1>{post.title}</h1>
-              <p>By Jeri Mobley-Arias</p>
+              <H1 color="white">{post.webStory?.[0].coverPage.title}</H1>
             </amp-story-grid-layer>
           </amp-story-page>
+          {post.webStory?.[0].pages.map((page, key: number) => (
+            <amp-story-page id={`page${key + 1}`} key={`page-${key}`}>
+              <amp-story-grid-layer template="fill">
+                <amp-img
+                  src={page.fixed.src}
+                  width="720"
+                  height="1280"
+                  layout="responsive"
+                />
+              </amp-story-grid-layer>
 
-          <amp-story-page id="page1">
-            <amp-story-grid-layer template="fill">
-              <amp-img
-                src={fixed?.src}
-                width="720"
-                height="1280"
-                layout="responsive"
-              />
-            </amp-story-grid-layer>
-
-            <amp-story-grid-layer template="vertical">
-              <h1>Page 1</h1>
-              <p>Page 1 text goes here.</p>
-            </amp-story-grid-layer>
-          </amp-story-page>
-
-          <amp-story-page id="page2">
-            <amp-story-grid-layer template="fill">
-              <amp-img
-                src={fixed?.src}
-                width="720"
-                height="1280"
-                layout="responsive"
-              />
-            </amp-story-grid-layer>
-            <amp-story-grid-layer template="vertical">
-              <h1>Page 2</h1>
-              <p>Page 2 text goes here.</p>
-            </amp-story-grid-layer>
-          </amp-story-page>
+              <amp-story-grid-layer template="vertical">
+                <H2 color="white">{page.title}</H2>
+              </amp-story-grid-layer>
+            </amp-story-page>
+          ))}
         </amp-story>
       </Container>
     </ThemeProvider>
